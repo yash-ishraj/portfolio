@@ -28,7 +28,7 @@ body {
     padding: 0 20px;
 }
 
-/* Header styles */
+/* Header and Navbar styles */
 header {
     background-color: rgba(10, 25, 47, 0.85);
     position: fixed;
@@ -36,17 +36,44 @@ header {
     top: 0;
     z-index: 1000;
     backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+header.scrolled {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    background-color: rgba(10, 25, 47, 0.95);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+}
+
+.logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.1) rotate(5deg);
 }
 
 nav ul {
     list-style: none;
     display: flex;
-    justify-content: flex-end;
-    padding: 20px 0;
+    align-items: center;
+    margin: 0;
+    padding: 0;
 }
 
 nav ul li {
     margin-left: 30px;
+    position: relative;
 }
 
 nav a {
@@ -54,10 +81,40 @@ nav a {
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
+    position: relative;
+    padding: 5px 0;
+}
+
+nav a::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-color);
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out;
+}
+
+nav a:hover::before {
+    visibility: visible;
+    transform: scaleX(1);
 }
 
 nav a:hover {
     color: var(--primary-color);
+}
+
+/* Add this new style for the active link */
+nav a.active {
+    color: var(--primary-color);
+}
+
+nav a.active::before {
+    visibility: visible;
+    transform: scaleX(1);
 }
 
 /* Section styles */
@@ -111,16 +168,92 @@ h2 {
     position: relative;
     overflow: hidden;
     padding: 150px 0;
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 2;
 }
 
 .hero-content {
     position: relative;
-    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 50px;
+    z-index: 3;
 }
+
+.floating-icons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.floating-icons i {
+    position: absolute;
+    color: var(--primary-color);
+    font-size: 24px;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Distribute icons */
+.floating-icons i:nth-child(1) { top: 10%; left: 5%; }
+.floating-icons i:nth-child(2) { top: 20%; left: 80%; }
+.floating-icons i:nth-child(3) { top: 60%; left: 15%; }
+.floating-icons i:nth-child(4) { top: 75%; left: 75%; }
+.floating-icons i:nth-child(5) { top: 35%; left: 50%; }
+.floating-icons i:nth-child(6) { top: 80%; left: 40%; }
+
+/* Update hero content z-index */
+.hero-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+    z-index: 3;
+}
+
+/* Ensure profile picture is above icons */
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: 4;
+}
+
+/* Remove hover effects and animations from icons */
+.floating-icons i {
+    transition: none;
+}
+
+.floating-icons i:hover {
+    transform: none;
+    color: var(--primary-color);
+}
+
+/* Remove the @keyframes float animation */
 
 .hero-text {
     flex: 1;
@@ -129,8 +262,9 @@ h2 {
 .hero-image {
     flex: 1;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
+    z-index: 3;
 }
 
 .profile-photo-container {
@@ -139,6 +273,8 @@ h2 {
     height: 300px;
     border-radius: 50%;
     overflow: hidden;
+    border: 3px solid var(--text-color);
+    transition: border-color 0.3s ease, transform 0.3s ease;
 }
 
 .profile-photo {
@@ -146,35 +282,16 @@ h2 {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
-    position: relative;
-    z-index: 2;
+    transition: transform 0.3s ease;
 }
 
-.profile-photo-border {
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    border-radius: 50%;
-    background: conic-gradient(var(--primary-color) 0deg, transparent 0deg);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 1;
+.profile-photo-container:hover {
+    border-color: var(--primary-color);
+    transform: rotate(5deg);
 }
 
-.profile-photo-container:hover .profile-photo-border {
-    opacity: 1;
-    animation: rotateBorder 2s linear infinite;
-}
-
-@keyframes rotateBorder {
-    0% {
-        background: conic-gradient(var(--primary-color) 0deg, transparent 0deg);
-    }
-    100% {
-        background: conic-gradient(var(--primary-color) 360deg, transparent 360deg);
-    }
+.profile-photo-container:hover .profile-photo {
+    transform: rotate(-5deg) scale(1.1);
 }
 
 /* Responsive design for hero section */
@@ -185,12 +302,20 @@ h2 {
     }
 
     .hero-image {
+        justify-content: center;
         margin-bottom: 30px;
     }
 
     .profile-photo-container {
         width: 200px;
         height: 200px;
+    }
+
+    .floating-icons {
+        width: 100%;
+        height: 40%;
+        top: auto;
+        bottom: 0;
     }
 }
 
@@ -373,35 +498,117 @@ footer {
     }
 }
 
-/* Add this to your existing CSS */
+/* Add these new styles */
 
-.floating-icons {
+/* Animated skill bars */
+.skill-bar {
+    width: 100%;
+    background-color: var(--card-bg-color);
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.skill-progress {
+    width: 0;
+    height: 20px;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    transition: width 1s ease-in-out;
+    position: relative;
+}
+
+.skill-progress span {
     position: absolute;
-    top: 0;
-    left: 0;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--bg-color);
+    font-weight: bold;
+}
+
+/* Particle background */
+#particles-js {
+    position: absolute;
     width: 100%;
     height: 100%;
-    pointer-events: none;
+    top: 0;
+    left: 0;
     z-index: 1;
 }
 
-.floating-icons i {
-    position: absolute;
-    color: var(--primary-color);
-    opacity: 0.2;
-    animation: float 15s infinite;
+/* Smooth reveal animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.5s ease;
 }
 
-.floating-icons i:nth-child(1) { font-size: 30px; left: 5%; top: 20%; animation-delay: 0s; }
-.floating-icons i:nth-child(2) { font-size: 25px; left: 15%; top: 80%; animation-delay: -1s; }
-.floating-icons i:nth-child(3) { font-size: 35px; left: 30%; top: 40%; animation-delay: -2s; }
-.floating-icons i:nth-child(4) { font-size: 20px; left: 50%; top: 70%; animation-delay: -3s; }
-.floating-icons i:nth-child(5) { font-size: 40px; left: 70%; top: 30%; animation-delay: -4s; }
-.floating-icons i:nth-child(6) { font-size: 28px; left: 80%; top: 60%; animation-delay: -5s; }
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-@keyframes float {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    25% { transform: translateY(-20px) rotate(5deg); }
-    50% { transform: translateY(0) rotate(0deg); }
-    75% { transform: translateY(20px) rotate(-5deg); }
+/* Interactive floating icons */
+.floating-icons i {
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.floating-icons i:hover {
+    transform: scale(1.2);
+    color: var(--primary-color);
+}
+
+/* Existing styles... */
+
+/* Add this new style for the main content */
+main {
+    position: relative;
+    z-index: 2;
+    background-color: var(--bg-color);
+}
+
+/* Ensure other sections have a background */
+main > section:not(.hero) {
+    background-color: var(--bg-color);
+    position: relative;
+    z-index: 2;
+}
+
+/* Responsive design for navbar */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+    }
+
+    nav ul {
+        margin-top: 20px;
+        flex-direction: column;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+}
+
+/* Add this new style for the menu icon */
+.menu-icon {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .menu-icon {
+        display: block;
+    }
+
+    nav ul {
+        display: none;
+        width: 100%;
+    }
+
+    nav ul.show {
+        display: flex;
+    }
 }
