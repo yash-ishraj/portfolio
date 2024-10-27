@@ -1,4 +1,4 @@
-/* styles.css */
+/* Root variables */
 :root {
     --primary-color: #64ffda;
     --bg-color: #0a192f;
@@ -6,8 +6,11 @@
     --heading-color: #ccd6f6;
     --card-bg-color: #112240;
     --hover-color: #233554;
+    --animation-duration: 0.5s;
+    --animation-timing: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
+/* Global styles */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -20,6 +23,7 @@ body {
     background-color: var(--bg-color);
     line-height: 1.6;
     transition: background-color 0.3s ease, color 0.3s ease;
+    animation: fadeIn var(--animation-duration) var(--animation-timing);
 }
 
 .container {
@@ -103,18 +107,65 @@ nav a:hover::before {
     transform: scaleX(1);
 }
 
-nav a:hover {
+nav a:hover, nav a.active {
     color: var(--primary-color);
 }
 
-/* Add this new style for the active link */
-nav a.active {
-    color: var(--primary-color);
+.menu-icon {
+    display: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: var(--heading-color);
 }
 
-nav a.active::before {
-    visibility: visible;
-    transform: scaleX(1);
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: rgba(10, 25, 47, 0.95);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 20px 0;
+    }
+
+    nav ul.show {
+        display: flex;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .menu-icon {
+        display: block;
+        position: absolute;
+        top: 15px;
+        right: 20px;
+    }
+
+    .logo {
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .logo {
+        font-size: 1.5em;
+    }
+
+    nav {
+        padding: 10px 0;
+    }
 }
 
 /* Section styles */
@@ -294,31 +345,6 @@ h2 {
     transform: rotate(-5deg) scale(1.1);
 }
 
-/* Responsive design for hero section */
-@media (max-width: 768px) {
-    .hero-content {
-        flex-direction: column-reverse;
-        text-align: center;
-    }
-
-    .hero-image {
-        justify-content: center;
-        margin-bottom: 30px;
-    }
-
-    .profile-photo-container {
-        width: 200px;
-        height: 200px;
-    }
-
-    .floating-icons {
-        width: 100%;
-        height: 40%;
-        top: auto;
-        bottom: 0;
-    }
-}
-
 /* About section */
 .about-content {
     display: flex;
@@ -459,46 +485,318 @@ footer {
     margin-top: 20px;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-    .about-content, .footer-content {
-        flex-direction: column;
-    }
-
-    .get-to-know-me, .my-skills, .footer-left, .footer-right {
-        margin-bottom: 30px;
-    }
-}
-
 /* Scroll to top button styles */
 #scroll-to-top {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: var(--card-bg-color);
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    border: none;
     border-radius: 50%;
     width: 50px;
     height: 50px;
     font-size: 24px;
     cursor: pointer;
     display: none;
-    transition: background-color 0.3s ease;
+    z-index: 998;
+    transition: all 0.3s ease;
 }
 
-#scroll-to-top:hover {
+/* Chatbot styles */
+#chatbot-container {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 300px;
+    height: 400px;
+    background-color: var(--card-bg-color);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    font-family: 'Calibre', 'Inter', 'San Francisco', 'SF Pro Text', -apple-system, system-ui, sans-serif;
+}
+
+#chatbot-header {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+#chatbot-toggle {
+    background: none;
+    border: none;
+    color: var(--bg-color);
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+#chatbot-toggle:hover {
+    transform: rotate(90deg);
+}
+
+#chatbot-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    max-width: 80%;
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.user-message {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    align-self: flex-end;
+    border-bottom-right-radius: 5px;
+}
+
+.ai-message {
+    background-color: var(--hover-color);
+    color: var(--text-color);
+    align-self: flex-start;
+    border-bottom-left-radius: 5px;
+}
+
+#chatbot-input {
+    display: flex;
+    padding: 10px;
     background-color: var(--hover-color);
 }
 
-/* Responsive design for skills */
+#user-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    margin-right: 10px;
+    font-size: 14px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+#send-button {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+#send-button:hover {
+    background-color: #4cd3a9;
+}
+
+#chatbot-open {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+#chatbot-open:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.chatbot-hidden {
+    transform: translateY(calc(100% + 20px));
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.floating-icons i {
+    animation: float 3s infinite var(--animation-timing);
+}
+
+/* Responsive design */
 @media (max-width: 768px) {
+    .about-content, .footer-content, .skills-wrapper {
+        flex-direction: column;
+    }
+
+    .get-to-know-me, .my-skills, .footer-left, .footer-right {
+        margin-bottom: 30px;
+    }
+
     .skills-container {
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     }
+
+    .hero-content {
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+
+    .hero-image {
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+
+    .profile-photo-container {
+        width: 200px;
+        height: 200px;
+    }
+
+    .floating-icons {
+        width: 100%;
+        height: 40%;
+        top: auto;
+        bottom: 0;
+    }
+
+    nav {
+        flex-direction: column;
+    }
+
+    nav ul {
+        margin-top: 20px;
+        flex-direction: column;
+        display: none;
+        width: 100%;
+    }
+
+    nav ul.show {
+        display: flex;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    .menu-icon {
+        display: block;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .skill-cube-container {
+        margin-left: 0;
+        margin-top: 30px;
+    }
 }
 
-/* Add these new styles */
+/* Skills section layout */
+.skills-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.skill-bars {
+    flex: 1;
+}
+
+/* 3D Skill Cube */
+.skill-cube-container {
+    width: 150px;
+    height: 150px;
+    perspective: 1000px;
+    margin-left: 20px;
+}
+
+.skill-cube {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform var(--animation-duration) var(--animation-timing);
+    animation: rotate 20s infinite linear;
+}
+
+.skill-cube:hover {
+    animation-play-state: paused;
+}
+
+.cube-face {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border: 2px solid var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--primary-color);
+    background-color: rgba(17, 34, 64, 0.8);
+    backface-visibility: visible;
+    transition: transform var(--animation-duration) var(--animation-timing), opacity var(--animation-duration) var(--animation-timing);
+    overflow: hidden;
+}
+
+.cube-face::before {
+    content: attr(data-skill);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    transform: translateY(100%);
+    transition: transform var(--animation-duration) var(--animation-timing);
+}
+
+.cube-face:hover::before {
+    transform: translateY(0);
+}
+
+.front  { transform: rotateY(0deg) translateZ(75px); }
+.back   { transform: rotateY(180deg) translateZ(75px); }
+.right  { transform: rotateY(90deg) translateZ(75px); }
+.left   { transform: rotateY(-90deg) translateZ(75px); }
+.top    { transform: rotateX(90deg) translateZ(75px); }
+.bottom { transform: rotateX(-90deg) translateZ(75px); }
+
+@keyframes rotate {
+    0% { transform: rotateX(0deg) rotateY(0deg); }
+    100% { transform: rotateX(360deg) rotateY(360deg); }
+}
 
 /* Animated skill bars */
 .skill-bar {
@@ -526,16 +824,6 @@ footer {
     font-weight: bold;
 }
 
-/* Particle background */
-#particles-js {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-
 /* Smooth reveal animations */
 .reveal {
     opacity: 0;
@@ -548,42 +836,40 @@ footer {
     transform: translateY(0);
 }
 
-/* Interactive floating icons */
-.floating-icons i {
-    cursor: pointer;
-    transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.floating-icons i:hover {
-    transform: scale(1.2);
-    color: var(--primary-color);
-}
-
-/* Existing styles... */
-
-/* Add this new style for the main content */
+/* Main content */
 main {
     position: relative;
     z-index: 2;
     background-color: var(--bg-color);
 }
 
-/* Ensure other sections have a background */
 main > section:not(.hero) {
     background-color: var(--bg-color);
     position: relative;
     z-index: 2;
 }
 
-/* Responsive design for navbar */
+/* Mobile menu styles */
 @media (max-width: 768px) {
-    nav {
-        flex-direction: column;
+    .menu-icon {
+        display: block;
+        cursor: pointer;
     }
 
     nav ul {
-        margin-top: 20px;
+        display: none;
         flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--bg-color);
+        padding: 20px;
+        z-index: 1000;
+    }
+
+    nav ul.show {
+        display: flex;
     }
 
     nav ul li {
@@ -591,24 +877,3 @@ main > section:not(.hero) {
     }
 }
 
-/* Add this new style for the menu icon */
-.menu-icon {
-    display: none;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-@media (max-width: 768px) {
-    .menu-icon {
-        display: block;
-    }
-
-    nav ul {
-        display: none;
-        width: 100%;
-    }
-
-    nav ul.show {
-        display: flex;
-    }
-}
