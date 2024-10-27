@@ -80,7 +80,24 @@ function typeWriter(element, text, i = 0) {
     }
 }
 
-// Trigger animations on page load
+// Add this function definition before the DOMContentLoaded event listener
+function reveal() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+            } else {
+                entry.target.classList.remove('revealed');
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+}
+
+// Update your DOMContentLoaded event listener to include the reveal() function call
 document.addEventListener('DOMContentLoaded', () => {
     // Trigger AOS
     AOS.refresh();
@@ -155,13 +172,58 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Define keywords and their responses
         const responses = {
-            'hello': "Hello! I'm an AI assistant for [Your Name]'s portfolio. How can I help you?",
-            'hi': "Hi there! I'm here to help you learn more about [Your Name]'s skills and projects. What would you like to know?",
-            'skills': "[Your Name] is skilled in HTML, CSS, JavaScript, React, Node.js, and Git. They're always learning new technologies to stay up-to-date in the fast-paced world of web development.",
-            'projects': "[Your Name] has worked on several exciting projects. You can find details about them in the Projects section of this portfolio. Is there a specific project you'd like to know more about?",
-            'contact': "You can contact [Your Name] through the contact form in the Contact section of this portfolio. They'll be happy to hear from you!",
-            'experience': "[Your Name] has X years of experience in web development, working on a variety of projects from small business websites to large-scale web applications.",
-            'education': "[Your Name] has a degree in [Your Degree] from [Your University]. They also continuously learn through online courses and coding bootcamps.",
+            // Informal greetings
+            'hello': "Hey there! I'm the AI assistant for [Your Name]'s portfolio. What can I help you with?",
+            'hi': "Hi! Ready to explore [Your Name]'s awesome work? What would you like to know?",
+            'hey': "Hey! I'm here to chat about [Your Name]'s skills and projects. What's on your mind?",
+
+            // Formal greetings
+            'greetings': "Greetings! I'm the AI assistant for [Your Name]'s professional portfolio. How may I assist you today?",
+            'good day': "Good day! I'm here to provide information about [Your Name]'s professional experience and accomplishments. How can I be of service?",
+
+            // Skills - informal
+            'skills': "[Your Name]'s a pro at HTML, CSS, JavaScript, React, Node.js, and Git. Always picking up new tech too!",
+            'what can they do': "Oh, [Your Name]'s got mad skills! Web dev, app creation, you name it. Want details on anything specific?",
+
+            // Skills - formal
+            'technical proficiencies': "[Your Name] is proficient in HTML, CSS, JavaScript, React, Node.js, and Git. They consistently expand their skill set to remain current with industry trends.",
+            'areas of expertise': "[Your Name]'s areas of expertise include front-end and back-end web development, responsive design, and version control systems.",
+
+            // Projects - informal
+            'projects': "[Your Name]'s worked on some cool stuff! Check out the Projects section. Any particular one catch your eye?",
+            'what have they built': "A bunch of neat things! E-commerce sites, mobile apps, you name it. Want me to highlight a few?",
+
+            // Projects - formal
+            'portfolio': "[Your Name] has an extensive portfolio of projects, ranging from e-commerce platforms to data visualization applications. Would you like more information on a specific project?",
+            'professional work': "[Your Name] has contributed to various professional projects, demonstrating expertise in both front-end and back-end development. The Projects section provides detailed information on each.",
+
+            // Contact - informal
+            'contact': "Wanna get in touch with [Your Name]? Just use the contact form below. They'd love to hear from you!",
+            'how to reach': "Easy peasy! There's a contact form right here on the site. Drop [Your Name] a line anytime!",
+
+            // Contact - formal
+            'professional inquiry': "For professional inquiries, please utilize the contact form provided in the Contact section. [Your Name] will respond promptly to your message.",
+            'business communication': "To initiate business communication with [Your Name], please submit your inquiry through the designated contact form. You can expect a timely and professional response.",
+
+            // Experience - informal
+            'experience': "[Your Name]'s been in the game for X years, working on all sorts of cool web stuff. From small biz sites to big fancy web apps!",
+            'work history': "Let's see... [Your Name]'s done a bit of everything! Startups, big corps, freelance gigs. Want the full scoop?",
+
+            // Experience - formal
+            'professional experience': "[Your Name] has X years of professional experience in web development, encompassing a diverse range of projects from small business websites to enterprise-level web applications.",
+            'career progression': "[Your Name]'s career progression includes roles at [Company A], [Company B], and [Company C], demonstrating a consistent trajectory of professional growth and increasing responsibilities.",
+
+            // Education - informal
+            'education': "[Your Name] got a degree in [Your Degree] from [Your University]. But they're always learning new stuff online too!",
+            'where did they study': "They've got a fancy degree from [Your University], but honestly, they're always studying! Bootcamps, online courses, you name it.",
+
+            // Education - formal
+            'academic background': "[Your Name] holds a [Your Degree] from [Your University]. Additionally, they regularly engage in professional development through online courses and industry certifications.",
+            'qualifications': "[Your Name]'s qualifications include a [Your Degree] from [Your University], supplemented by continuous professional development and relevant industry certifications.",
+
+            // Personal projects and volunteer work (as before)
+            'personal projects': "[Your Name] has developed [Personal Project 1], a [Type of Project] that utilizes [Technology] to [Achieve Specific Goal].",
+            'volunteer work': "[Your Name] has volunteered with [Organization 1], [Organization 2], and [Organization 3], contributing to [Specific Cause]."
         };
 
         // Check if any keyword matches the input
@@ -178,18 +240,75 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuIcon = document.querySelector('.menu-icon');
     const navUl = document.querySelector('nav ul');
 
+    console.log('Menu icon:', menuIcon);
+    console.log('Nav ul:', navUl);
+
     if (menuIcon && navUl) {
         menuIcon.addEventListener('click', () => {
+            console.log('Menu icon clicked');
             navUl.classList.toggle('show');
+            console.log('Nav classes after toggle:', navUl.classList);
         });
 
         // Close menu when a link is clicked
         document.querySelectorAll('nav ul li a').forEach(link => {
             link.addEventListener('click', () => {
                 navUl.classList.remove('show');
+                console.log('Nav link clicked, nav classes:', navUl.classList);
             });
         });
+    } else {
+        console.error('Menu icon or nav ul not found');
     }
+
+    // Add this function to your existing script.js
+    function setupThemeToggle() {
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        console.log('Setting up theme toggle');
+        console.log('Theme toggle element:', themeToggle);
+
+        if (!themeToggle) {
+            console.error('Theme toggle element not found');
+            return;
+        }
+
+        // Check for saved user preference
+        const savedNightMode = localStorage.getItem('nightMode');
+        console.log('Saved night mode:', savedNightMode);
+
+        if (savedNightMode === 'true') {
+            body.classList.add('night-mode');
+            themeToggle.checked = true;
+            console.log('Applied saved night mode');
+        }
+
+        themeToggle.addEventListener('change', () => {
+            console.log('Theme toggle changed', themeToggle.checked);
+            if (themeToggle.checked) {
+                body.classList.add('night-mode');
+                localStorage.setItem('nightMode', 'true');
+                document.documentElement.style.setProperty('--bg-color', '#ffffff');
+                document.documentElement.style.setProperty('--text-color', '#333333');
+            } else {
+                body.classList.remove('night-mode');
+                localStorage.setItem('nightMode', 'false');
+                document.documentElement.style.setProperty('--bg-color', '#0a192f');
+                document.documentElement.style.setProperty('--text-color', '#8892b0');
+            }
+            console.log('Body classes:', body.classList);
+        });
+    }
+
+    // Make sure this function is being called
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('DOM content loaded');
+        setupThemeToggle();
+    });
+
+    // Call the reveal function
+    reveal();
 });
 
 // Scroll-to-top button
@@ -259,25 +378,6 @@ window.addEventListener('scroll', () => {
     header.classList.toggle('scrolled', window.scrollY > 50);
 });
 
-// Mobile menu toggle
-const menuIcon = document.querySelector('.menu-icon');
-const navUl = document.querySelector('nav ul');
-
-if (menuIcon && navUl) {
-    menuIcon.addEventListener('click', () => {
-        navUl.classList.toggle('show');
-    });
-} else {
-    console.error('Menu icon or navigation list not found');
-}
-
-// Close menu when a link is clicked
-document.querySelectorAll('nav ul li a').forEach(link => {
-    link.addEventListener('click', () => {
-        navUl.classList.remove('show');
-    });
-});
-
 // Active link highlighting
 const sections = document.querySelectorAll('section');
 const navLinks = document.querySelectorAll('nav ul li a');
@@ -340,5 +440,10 @@ cubeFaces.forEach((face, index) => {
         targetRotation.y = (index % 2 === 0 ? angle : -angle);
     });
 });
-
 requestAnimationFrame(rotateCube);
+
+
+
+
+
+

@@ -1,11 +1,11 @@
 /* Root variables */
 :root {
-    --primary-color: #64ffda;
-    --bg-color: #0a192f;
-    --text-color: #8892b0;
-    --heading-color: #ccd6f6;
-    --card-bg-color: #112240;
-    --hover-color: #233554;
+    --primary-color: #0077b6;
+    --bg-color: #f8f9fa;
+    --text-color: #333333;
+    --heading-color: #0a192f;
+    --card-bg-color: #ffffff;
+    --hover-color: #e9ecef;
     --animation-duration: 0.5s;
     --animation-timing: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
@@ -34,7 +34,7 @@ body {
 
 /* Header and Navbar styles */
 header {
-    background-color: rgba(10, 25, 47, 0.85);
+    background-color: rgba(248, 249, 250, 0.85);
     position: fixed;
     width: 100%;
     top: 0;
@@ -45,7 +45,7 @@ header {
 
 header.scrolled {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    background-color: rgba(10, 25, 47, 0.95);
+    background-color: rgba(248, 249, 250, 0.95);
 }
 
 nav {
@@ -827,11 +827,11 @@ footer {
 /* Smooth reveal animations */
 .reveal {
     opacity: 0;
-    transform: translateY(50px);
-    transition: all 0.5s ease;
+    transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s;
 }
 
-.reveal.active {
+.reveal.revealed {
     opacity: 1;
     transform: translateY(0);
 }
@@ -865,15 +865,120 @@ main > section:not(.hero) {
         width: 100%;
         background-color: var(--bg-color);
         padding: 20px;
-        z-index: 1000;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     }
 
     nav ul.show {
-        display: flex;
+        display: flex !important; /* Add !important to ensure it overrides other styles */
     }
 
     nav ul li {
         margin: 10px 0;
     }
 }
+
+/* Theme toggle styles */
+.theme-toggle {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    margin-left: 20px;
+}
+
+.theme-toggle__input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.theme-toggle__label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #0077b6;
+    border-radius: 34px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.theme-toggle__label:before {
+    content: '';
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.theme-toggle__input:checked + .theme-toggle__label {
+    background-color: #64ffda;
+}
+
+.theme-toggle__input:checked + .theme-toggle__label:before {
+    transform: translateX(30px);
+}
+
+.theme-toggle__icon {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 20px;
+    height: 20px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" clip-rule="evenodd"/></svg>');
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.theme-toggle__input:checked + .theme-toggle__label .theme-toggle__icon {
+    transform: rotate(180deg);
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"/></svg>');
+}
+
+/* Night mode styles */
+body.night-mode {
+    --primary-color: #64ffda;
+    --bg-color: #0a192f;
+    --text-color: #8892b0;
+    --heading-color: #ccd6f6;
+    --card-bg-color: #112240;
+    --hover-color: #233554;
+}
+
+body.night-mode header {
+    background-color: rgba(10, 25, 47, 0.85) !important;
+}
+
+body.night-mode header.scrolled {
+    background-color: rgba(10, 25, 47, 0.95) !important;
+}
+
+body.night-mode .project-card {
+    background-color: var(--card-bg-color) !important;
+}
+
+body.night-mode .cta-button {
+    color: var(--bg-color);
+    background-color: var(--text-color);
+}
+
+body.night-mode .hero {
+    background-color: var(--bg-color);
+}
+
+body.night-mode h1, 
+body.night-mode h2, 
+body.night-mode h3 {
+    color: var(--heading-color);
+}
+
+/* Add more night mode styles as needed for other elements */
+
+
+
 
