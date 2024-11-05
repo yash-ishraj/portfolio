@@ -173,57 +173,57 @@ document.addEventListener('DOMContentLoaded', () => {
         // Define keywords and their responses
         const responses = {
             // Informal greetings
-            'hello': "Hey there! I'm the AI assistant for [Your Name]'s portfolio. What can I help you with?",
-            'hi': "Hi! Ready to explore [Your Name]'s awesome work? What would you like to know?",
-            'hey': "Hey! I'm here to chat about [Your Name]'s skills and projects. What's on your mind?",
+            'hello': "Hey there! I'm the AI assistant for Ashish raj's portfolio. What can I help you with?",
+            'hi': "Hi! Ready to explore Ashish raj's awesome work? What would you like to know?",
+            'hey': "Hey! I'm here to chat about Ashish raj's skills and projects. What's on your mind?",
 
             // Formal greetings
-            'greetings': "Greetings! I'm the AI assistant for [Your Name]'s professional portfolio. How may I assist you today?",
-            'good day': "Good day! I'm here to provide information about [Your Name]'s professional experience and accomplishments. How can I be of service?",
+            'greetings': "Greetings! I'm the AI assistant for Ashish raj's professional portfolio. How may I assist you today?",
+            'good day': "Good day! I'm here to provide information about Ashish raj's professional experience and accomplishments. How can I be of service?",
 
             // Skills - informal
-            'skills': "[Your Name]'s a pro at HTML, CSS, JavaScript, React, Node.js, and Git. Always picking up new tech too!",
-            'what can they do': "Oh, [Your Name]'s got mad skills! Web dev, app creation, you name it. Want details on anything specific?",
+            'skills': "Ashish raj is a pro at HTML, CSS, JavaScript, React, Node.js, and Git. Always picking up new tech too!",
+            'what can they do': "Oh, Ashish raj's got mad skills! Web dev, app creation, you name it. Want details on anything specific?",
 
             // Skills - formal
-            'technical proficiencies': "[Your Name] is proficient in HTML, CSS, JavaScript, React, Node.js, and Git. They consistently expand their skill set to remain current with industry trends.",
-            'areas of expertise': "[Your Name]'s areas of expertise include front-end and back-end web development, responsive design, and version control systems.",
+            'technical proficiencies': "Ashish raj is proficient in HTML, CSS, JavaScript, React, Node.js, and Git. They consistently expand their skill set to remain current with industry trends.",
+            'areas of expertise': "Ashish raj's areas of expertise include front-end and back-end web development, responsive design, and version control systems.",
 
             // Projects - informal
-            'projects': "[Your Name]'s worked on some cool stuff! Check out the Projects section. Any particular one catch your eye?",
-            'what have they built': "A bunch of neat things! E-commerce sites, mobile apps, you name it. Want me to highlight a few?",
+            'projects': "Ashish raj's worked on some cool stuff! Check out the Projects section. Any particular one catch your eye?",
+            'what have they built': "A bunch of neat things! E-commerce sites,Basic game projects ,College fest website . Want me to highlight a few?",
 
             // Projects - formal
-            'portfolio': "[Your Name] has an extensive portfolio of projects, ranging from e-commerce platforms to data visualization applications. Would you like more information on a specific project?",
-            'professional work': "[Your Name] has contributed to various professional projects, demonstrating expertise in both front-end and back-end development. The Projects section provides detailed information on each.",
+            'portfolio': "Ashish raj has an extensive portfolio of projects, ranging from e-commerce platforms to data visualization applications. Would you like more information on a specific project?",
+            'professional work': "Ashish raj has contributed to various professional projects, demonstrating expertise in both front-end and back-end development. The Projects section provides detailed information on each.",
 
             // Contact - informal
-            'contact': "Wanna get in touch with [Your Name]? Just use the contact form below. They'd love to hear from you!",
-            'how to reach': "Easy peasy! There's a contact form right here on the site. Drop [Your Name] a line anytime!",
+            'contact': "Wanna get in touch with Ashish raj? Just use the contact form below. He'd love to hear from you!",
+            'how to reach': "Easy peasy! There's a contact form right here on the site. Drop Ashish raj a line anytime!",
 
             // Contact - formal
-            'professional inquiry': "For professional inquiries, please utilize the contact form provided in the Contact section. [Your Name] will respond promptly to your message.",
-            'business communication': "To initiate business communication with [Your Name], please submit your inquiry through the designated contact form. You can expect a timely and professional response.",
+            'professional inquiry': "For professional inquiries, please utilize the contact form provided in the Contact section. Ashish raj will respond promptly to your message.",
+            'business communication': "To initiate business communication with Ashish raj, please submit your inquiry through the designated contact form. You can expect a timely and professional response.",
 
             // Experience - informal
-            'experience': "[Your Name]'s been in the game for X years, working on all sorts of cool web stuff. From small biz sites to big fancy web apps!",
-            'work history': "Let's see... [Your Name]'s done a bit of everything! Startups, big corps, freelance gigs. Want the full scoop?",
+            'experience': "Ashish raj's been in the game for 2 years, working on all sorts of cool web stuff. From small biz sites to big fancy E-commerce apps!",
+            'work history': "Let's see... Ashish raj's done a bit of everything! Startups, big corps, freelance gigs. Want the full scoop?",
 
             // Experience - formal
-            'professional experience': "[Your Name] has X years of professional experience in web development, encompassing a diverse range of projects from small business websites to enterprise-level web applications.",
-            'career progression': "[Your Name]'s career progression includes roles at [Company A], [Company B], and [Company C], demonstrating a consistent trajectory of professional growth and increasing responsibilities.",
+            'professional experience': "Ashish raj has 2 years of professional experience in web development, encompassing a diverse range of projects from small business websites to enterprise-level web applications.",
+            'career progression': "Ashish raj's career progression includes roles at startups, freelancing, and college projects, demonstrating a consistent trajectory of professional growth and increasing responsibilities.",
 
             // Education - informal
-            'education': "[Your Name] got a degree in [Your Degree] from [Your University]. But they're always learning new stuff online too!",
-            'where did they study': "They've got a fancy degree from [Your University], but honestly, they're always studying! Bootcamps, online courses, you name it.",
+            'education': "Ashish raj is doing B.Tech from NIT Sikkim. But he's always learning new stuff online too!",
+            'where did they study': "He's studying at NIT Sikkim, but honestly, he's always studying! Bootcamps, online courses, you name it.",
 
             // Education - formal
-            'academic background': "[Your Name] holds a [Your Degree] from [Your University]. Additionally, they regularly engage in professional development through online courses and industry certifications.",
-            'qualifications': "[Your Name]'s qualifications include a [Your Degree] from [Your University], supplemented by continuous professional development and relevant industry certifications.",
+            'academic background': "Ashish raj is doing B.Tech from NIT Sikkim. Additionally, he regularly engages in professional development through online courses and industry certifications.",
+            'qualifications': "Ashish raj's is doing B.Tech from NIT Sikkim, supplemented by continuous professional development and relevant industry certifications.",
 
             // Personal projects and volunteer work (as before)
-            'personal projects': "[Your Name] has developed [Personal Project 1], a [Type of Project] that utilizes [Technology] to [Achieve Specific Goal].",
-            'volunteer work': "[Your Name] has volunteered with [Organization 1], [Organization 2], and [Organization 3], contributing to [Specific Cause]."
+            'personal projects': "Ashish raj has developed frontend for college fest website, a basic game project and a E-commerce site that utilizes svelte,sveltekit,react to build it.",
+            'volunteer work': "Ashish raj has volunteered for college fest website, and contributed to hackathons."
         };
 
         // Check if any keyword matches the input
