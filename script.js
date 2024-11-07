@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // If no keyword matches, return a default response
-        return "I'm not sure I understand. Could you rephrase your question? You can ask me about [Your Name]'s skills, projects, experience, or education.";
+        return "I'm not sure I understand. Could you rephrase your question? You can ask me about Ashish raj's skills, projects, experience, or education.";
     }
 
     const menuIcon = document.querySelector('.menu-icon');
