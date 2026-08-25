@@ -182,20 +182,20 @@ document.addEventListener('DOMContentLoaded', () => {
             'good day': "Good day! I'm here to provide information about Ashish raj's professional experience and accomplishments. How can I be of service?",
 
             // Skills - informal
-            'skills': "Ashish raj is a pro at HTML, CSS, JavaScript, React, Node.js, and Git. Always picking up new tech too!",
-            'what can they do': "Oh, Ashish raj's got mad skills! Web dev, app creation, you name it. Want details on anything specific?",
+            'skills': "Ashish raj is backend-focused: Python, Node.js, FastAPI, Express, PostgreSQL, Redis, Docker, and AWS. Also picking up Golang and Kubernetes!",
+            'what can they do': "Oh, Ashish raj's got mad backend skills! REST APIs, system design, caching, cloud deployment, Flutter mobile apps, you name it. Want details on anything specific?",
 
             // Skills - formal
-            'technical proficiencies': "Ashish raj is proficient in HTML, CSS, JavaScript, React, Node.js, and Git. They consistently expand their skill set to remain current with industry trends.",
-            'areas of expertise': "Ashish raj's areas of expertise include front-end and back-end web development, responsive design, and version control systems.",
+            'technical proficiencies': "Ashish raj is proficient in Python, Node.js, FastAPI, Express.js, PostgreSQL, Redis, Docker, and AWS, and is currently expanding into Golang and Kubernetes.",
+            'areas of expertise': "Ashish raj's areas of expertise include backend systems, REST API design, caching strategies, database optimization, and cloud deployment.",
 
             // Projects - informal
-            'projects': "Ashish raj's worked on some cool stuff! Check out the Projects section. Any particular one catch your eye?",
-            'what have they built': "A bunch of neat things! E-commerce sites,Basic game projects ,College fest website . Want me to highlight a few?",
+            'projects': "Ashish raj's worked on some cool stuff! Check out the Projects section - a food delivery app, an AI legal document search system, and an IoT warehouse climate control system. Any particular one catch your eye?",
+            'what have they built': "A bunch of neat things! A full-stack food & grocery delivery app on both app stores, an LLM-powered legal document search engine, and an Industrial IoT climate control system. Want me to highlight a few?",
 
             // Projects - formal
-            'portfolio': "Ashish raj has an extensive portfolio of projects, ranging from e-commerce platforms to data visualization applications. Would you like more information on a specific project?",
-            'professional work': "Ashish raj has contributed to various professional projects, demonstrating expertise in both front-end and back-end development. The Projects section provides detailed information on each.",
+            'portfolio': "Ashish raj has a backend-focused portfolio of projects, ranging from a production delivery platform to an LLM-driven document retrieval system. Would you like more information on a specific project?",
+            'professional work': "Ashish raj has contributed to various professional and internship projects, demonstrating expertise in backend development, system design, and security. The Projects and Experience sections provide detailed information on each.",
 
             // Contact - informal
             'contact': "Wanna get in touch with Ashish raj? Just use the contact form below. He'd love to hear from you!",
@@ -206,24 +206,24 @@ document.addEventListener('DOMContentLoaded', () => {
             'business communication': "To initiate business communication with Ashish raj, please submit your inquiry through the designated contact form. You can expect a timely and professional response.",
 
             // Experience - informal
-            'experience': "Ashish raj's been in the game for 2 years, working on all sorts of cool web stuff. From small biz sites to big fancy E-commerce apps!",
-            'work history': "Let's see... Ashish raj's done a bit of everything! Startups, big corps, freelance gigs. Want the full scoop?",
+            'experience': "Ashish raj's interned as a backend engineer at Propell Action, ValueKare Technologies, and iGURUS Consultancy, working on RBAC systems, asset management, and financial platforms!",
+            'work history': "Let's see... Backend Intern at Propell Action (RBAC, security, Flutter mobile), SDE Intern at ValueKare (fixed asset management system), and Software Development Intern at iGURUS (financial comparison platform). Want the full scoop? Check the Experience section!",
 
             // Experience - formal
-            'professional experience': "Ashish raj has 2 years of professional experience in web development, encompassing a diverse range of projects from small business websites to enterprise-level web applications.",
-            'career progression': "Ashish raj's career progression includes roles at startups, freelancing, and college projects, demonstrating a consistent trajectory of professional growth and increasing responsibilities.",
+            'professional experience': "Ashish raj has interned as a Backend Intern at Propell Action Private Limited, an SDE Intern at ValueKare Technologies Private Limited, and a Software Development Intern at iGURUS Consultancy Services, spanning RBAC systems, DevOps, and financial platforms.",
+            'career progression': "Ashish raj's career progression spans backend internships across health-tech, enterprise SaaS, and fintech, alongside independently shipping and leading a production delivery app, demonstrating a consistent trajectory of professional growth.",
 
             // Education - informal
-            'education': "Ashish raj is doing B.Tech from NIT Sikkim. But he's always learning new stuff online too!",
-            'where did they study': "He's studying at NIT Sikkim, but honestly, he's always studying! Bootcamps, online courses, you name it.",
+            'education': "Ashish raj is in his 4th year (7th semester) doing B.Tech in CSE at NIT Sikkim, with a CGPA of 7.02 through 6th semester. Always learning new stuff online too!",
+            'where did they study': "He's studying at NIT Sikkim (B.Tech CSE, currently 7th semester), but honestly, he's always studying! Bootcamps, online courses, you name it.",
 
             // Education - formal
-            'academic background': "Ashish raj is doing B.Tech from NIT Sikkim. Additionally, he regularly engages in professional development through online courses and industry certifications.",
-            'qualifications': "Ashish raj's is doing B.Tech from NIT Sikkim, supplemented by continuous professional development and relevant industry certifications.",
+            'academic background': "Ashish raj is pursuing a B.Tech in Computer Science and Engineering from NIT Sikkim, currently in the 7th semester, with a CGPA of 7.02 through the 6th semester. He also regularly engages in professional development through online courses and certifications.",
+            'qualifications': "Ashish raj is pursuing a B.Tech in Computer Science and Engineering from NIT Sikkim (CGPA 7.02 through 6th semester), supplemented by continuous professional development and relevant industry certifications.",
 
             // Personal projects and volunteer work (as before)
-            'personal projects': "Ashish raj has developed frontend for college fest website, a basic game project and a E-commerce site that utilizes svelte,sveltekit,react to build it.",
-            'volunteer work': "Ashish raj has volunteered for college fest website, and contributed to hackathons."
+            'personal projects': "Ashish raj built and launched a full-stack food & grocery delivery app (Flutter, Node.js, PostgreSQL, Redis) live on both app stores, an LLM-powered legal document retrieval system, and an Industrial IoT warehouse climate control system.",
+            'volunteer work': "Ashish raj is a Core Member of The Regnant Ink literary club at NIT Sikkim, having organized 8+ events, and is Backend Lead for the food delivery application."
         };
 
         // Check if any keyword matches the input
