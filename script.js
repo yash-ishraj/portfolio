@@ -1,111 +1,121 @@
-// Smooth scrolling for navigation links
+// Smooth scrolling for in-page nav links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (!target) return;
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
+        target.scrollIntoView({ behavior: 'smooth' });
     });
 });
 
-// Form submission handler
-document.querySelector('#contact-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const form = this;
-    const submitButton = form.querySelector('button[type="submit"]');
-    const originalButtonText = submitButton.textContent;
-    submitButton.disabled = true;
-    submitButton.textContent = 'Sending...';
+// Contact form submission handler
+const contactForm = document.querySelector('#contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const form = this;
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalButtonText = submitButton.textContent;
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
 
-    fetch(form.action, {
-        method: form.method,
-        body: new FormData(form),
-        headers: {
-            'Accept': 'application/json'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.ok) {
-            form.reset();
-            alert('Thank you for your message! I will get back to you soon.');
-        } else {
-            throw new Error('Form submission failed');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Oops! There was a problem submitting your form. Please try again later.');
-    })
-    .finally(() => {
-        submitButton.disabled = false;
-        submitButton.textContent = originalButtonText;
+        fetch(form.action, {
+            method: form.method,
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    form.reset();
+                    alert('Thank you for your message! I will get back to you soon.');
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            })
+            .catch(error => {
+                console.error('Contact form error:', error);
+                alert('Oops! There was a problem submitting your form. Please try again later.');
+            })
+            .finally(() => {
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
+            });
     });
-});
-
-// Add hover effect to project cards
-document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('mouseenter', () => card.style.transform = 'scale(1.05)');
-    card.addEventListener('mouseleave', () => card.style.transform = 'scale(1)');
-});
-
-// Dark mode toggle
-const darkModeToggle = document.getElementById('dark-mode-toggle');
-if (darkModeToggle) {
-    darkModeToggle.addEventListener('click', () => document.body.classList.toggle('dark-mode'));
 }
 
-// Update AOS initialization
+// Project card hover lift
+document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('mouseenter', () => card.style.transform = 'translateY(-6px)');
+    card.addEventListener('mouseleave', () => card.style.transform = 'translateY(0)');
+});
+
+// AOS (scroll animation library) init
 AOS.init({
-    duration: 500, // Match with --animation-duration
-    easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)', // Match with --animation-timing
+    duration: 500,
+    easing: 'cubic-bezier(0.25, 0.1, 0.25, 1)',
     once: true,
     offset: 100
 });
 
-// Update skill bar animation
-function animateSkillBars() {
-    document.querySelectorAll('.skill-progress').forEach(bar => {
-        const target = bar.getAttribute('data-target');
-        bar.style.width = `${target}%`;
-        bar.querySelector('span').textContent = `${target}%`;
-    });
-}
-
-// Update typing effect
-function typeWriter(element, text, i = 0) {
-    if (i < text.length) {
-        element.textContent += text.charAt(i);
-        setTimeout(() => typeWriter(element, text, i + 1), 50); // Adjust speed as needed
-    }
-}
-
-// Add this function definition before the DOMContentLoaded event listener
+// Reveal-on-scroll for .reveal sections
 function reveal() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('revealed');
-            } else {
-                entry.target.classList.remove('revealed');
             }
         });
-    }, {
-        threshold: 0.1
-    });
+    }, { threshold: 0.1 });
 
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 }
 
-// Update your DOMContentLoaded event listener to include the reveal() function call
+// Hero stat counters — animate 0 -> target once visible
+function animateStatCounters() {
+    const counters = document.querySelectorAll('.stat-value[data-count]');
+    if (!counters.length) return;
+
+    const animateOne = (el) => {
+        const target = parseFloat(el.getAttribute('data-count'));
+        const suffix = el.getAttribute('data-suffix') || '';
+        const duration = 900;
+        const start = performance.now();
+
+        function tick(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.round(target * eased) + suffix;
+            if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+    };
+
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                animateOne(entry.target);
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.6 });
+
+    counters.forEach((el) => observer.observe(el));
+}
+
+// Typewriter effect for the hero heading
+function typeWriter(element, text, i = 0) {
+    if (i < text.length) {
+        element.textContent += text.charAt(i);
+        setTimeout(() => typeWriter(element, text, i + 1), 45);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Trigger AOS
     AOS.refresh();
+    animateStatCounters();
+    reveal();
 
-    // Animate skill bars
-    animateSkillBars();
-
-    // Start typing effect
     const mainHeading = document.querySelector('h1');
     if (mainHeading) {
         const text = mainHeading.textContent;
@@ -113,237 +123,242 @@ document.addEventListener('DOMContentLoaded', () => {
         typeWriter(mainHeading, text);
     }
 
-    // Trigger floating icons animation
     document.querySelectorAll('.floating-icons i').forEach((icon, index) => {
         icon.style.animationDelay = `${index * 0.2}s`;
     });
 
-    // Add this code at the end of your script.js file or replace the existing chatbot functionality
+    setupChatbot();
+    setupThemeToggle();
+    setupMobileMenu();
+});
+
+// ---------------------------------------------------------------------------
+// Chatbot ("Ask about Ashish") — a small rule-based FAQ assistant, not an LLM.
+// Each entry scores against the user's message by counting whole-word
+// keyword matches; the highest-scoring entry above zero wins.
+// ---------------------------------------------------------------------------
+const CHAT_KNOWLEDGE = [
+    {
+        keywords: ['hi', 'hello', 'hey', 'greetings'],
+        answer: "Hey! I'm a small FAQ bot for this site — ask me about Ashish's skills, experience, projects, education, or how to get in touch."
+    },
+    {
+        keywords: ['skill', 'skills', 'stack', 'tech', 'technology', 'proficient', 'expertise', 'language', 'languages'],
+        answer: "Ashish is backend-focused: Python, Node.js, FastAPI, Express.js, PostgreSQL, Redis, Docker, and AWS — currently expanding into Golang and Kubernetes. Full breakdown in the About section."
+    },
+    {
+        keywords: ['project', 'projects', 'built', 'build', 'portfolio', 'app', 'apps'],
+        answer: "A few highlights: a food & grocery delivery platform live on both app stores (500+ users), an LLM-powered legal document search engine, a multi-modal misinformation detection API, and an IoT warehouse climate control system. See the Projects section for details."
+    },
+    {
+        keywords: ['experience', 'work', 'job', 'intern', 'internship', 'career', 'history'],
+        answer: "Ashish has interned as a Backend Intern at Propell Action (RBAC + security work on a health-tech app), an SDE Intern at ValueKare Technologies (fixed asset management system), and a Software Development Intern at iGURUS (fintech comparison platform). Full details in Experience."
+    },
+    {
+        keywords: ['education', 'college', 'university', 'degree', 'study', 'studied', 'cgpa', 'gpa', 'school', 'nit', 'sikkim', 'qualification'],
+        answer: "Ashish is pursuing a B.Tech in Computer Science & Engineering at NIT Sikkim (2023–2027), currently in the 7th semester with a CGPA of 7.02 through the 6th semester."
+    },
+    {
+        keywords: ['contact', 'reach', 'email', 'mail', 'phone', 'hire', 'hiring', 'available', 'opportunity', 'opportunities'],
+        answer: "Best ways to reach Ashish: the contact form below, email at as7488896@gmail.com, or LinkedIn. He's open to backend engineering internships and full-time roles."
+    },
+    {
+        keywords: ['resume', 'cv', 'download'],
+        answer: "You can download the résumé from the button in the hero section or the Contact section — it's a direct PDF link, no sign-up needed."
+    },
+    {
+        keywords: ['github', 'repo', 'code', 'source'],
+        answer: "Ashish's GitHub is github.com/yash-ishraj — several project repos are linked directly from the Projects section too."
+    },
+    {
+        keywords: ['flutter', 'mobile', 'android', 'ios'],
+        answer: "Ashish built and shipped the Groozo delivery app in Flutter to both the Play Store and App Store, and also built a Flutter mobile client during his internship at Propell Action."
+    },
+    {
+        keywords: ['thanks', 'thank', 'thankyou', 'cool', 'nice', 'awesome', 'great'],
+        answer: "Glad that helped! Anything else — skills, projects, experience, or how to get in touch?"
+    }
+];
+
+const CHAT_QUICK_REPLY_TEXT = {
+    skills: 'What are your skills?',
+    experience: 'Tell me about your experience',
+    projects: 'What projects have you built?',
+    contact: 'How can I contact you?'
+};
+
+const CHAT_FALLBACK = "I don't have a canned answer for that. Try asking about skills, projects, experience, education, or how to get in touch — or just use the contact form below.";
+
+function scoreChatEntry(message, entry) {
+    let score = 0;
+    for (const keyword of entry.keywords) {
+        const pattern = new RegExp(`\\b${keyword}\\b`, 'i');
+        if (pattern.test(message)) score += 1;
+    }
+    return score;
+}
+
+function getChatResponse(message) {
+    let best = null;
+    let bestScore = 0;
+    for (const entry of CHAT_KNOWLEDGE) {
+        const score = scoreChatEntry(message, entry);
+        if (score > bestScore) {
+            bestScore = score;
+            best = entry;
+        }
+    }
+    return best ? best.answer : CHAT_FALLBACK;
+}
+
+function setupChatbot() {
     const chatbotContainer = document.getElementById('chatbot-container');
     const chatbotToggle = document.getElementById('chatbot-toggle');
     const chatbotOpen = document.getElementById('chatbot-open');
     const chatbotMessages = document.getElementById('chatbot-messages');
     const userInput = document.getElementById('user-input');
     const sendButton = document.getElementById('send-button');
+    const quickReplies = document.querySelectorAll('.quick-reply-chip');
 
-    if (chatbotToggle && chatbotOpen && chatbotContainer) {
-        chatbotToggle.addEventListener('click', () => {
-            chatbotContainer.classList.add('chatbot-hidden');
-            chatbotOpen.style.display = 'block';
-        });
-
-        chatbotOpen.addEventListener('click', () => {
-            chatbotContainer.classList.remove('chatbot-hidden');
-            chatbotOpen.style.display = 'none';
-        });
-    } else {
+    if (!chatbotToggle || !chatbotOpen || !chatbotContainer) {
         console.error('Chatbot elements not found in the DOM');
+        return;
     }
 
-    if (sendButton && userInput) {
-        sendButton.addEventListener('click', sendMessage);
-        userInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
-    }
+    let greeted = false;
 
-    function sendMessage() {
-        const message = userInput.value.trim();
-        if (message) {
-            addMessage('user', message);
-            userInput.value = '';
-            const response = generateResponse(message);
-            setTimeout(() => addMessage('ai', response), 500);
-        }
-    }
-
-    function addMessage(sender, message) {
-        const messageElement = document.createElement('div');
-        messageElement.classList.add('message', `${sender}-message`);
-        messageElement.textContent = message;
-        chatbotMessages.appendChild(messageElement);
+    function addMessage(sender, text) {
+        const el = document.createElement('div');
+        el.classList.add('message', `${sender}-message`);
+        el.textContent = text;
+        chatbotMessages.appendChild(el);
         chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        return el;
     }
 
-    function generateResponse(message) {
-        const lowerMessage = message.toLowerCase();
-        
-        // Define keywords and their responses
-        const responses = {
-            // Informal greetings
-            'hello': "Hey there! I'm the AI assistant for Ashish raj's portfolio. What can I help you with?",
-            'hi': "Hi! Ready to explore Ashish raj's awesome work? What would you like to know?",
-            'hey': "Hey! I'm here to chat about Ashish raj's skills and projects. What's on your mind?",
-
-            // Formal greetings
-            'greetings': "Greetings! I'm the AI assistant for Ashish raj's professional portfolio. How may I assist you today?",
-            'good day': "Good day! I'm here to provide information about Ashish raj's professional experience and accomplishments. How can I be of service?",
-
-            // Skills - informal
-            'skills': "Ashish raj is backend-focused: Python, Node.js, FastAPI, Express, PostgreSQL, Redis, Docker, and AWS. Also picking up Golang and Kubernetes!",
-            'what can they do': "Oh, Ashish raj's got mad backend skills! REST APIs, system design, caching, cloud deployment, Flutter mobile apps, you name it. Want details on anything specific?",
-
-            // Skills - formal
-            'technical proficiencies': "Ashish raj is proficient in Python, Node.js, FastAPI, Express.js, PostgreSQL, Redis, Docker, and AWS, and is currently expanding into Golang and Kubernetes.",
-            'areas of expertise': "Ashish raj's areas of expertise include backend systems, REST API design, caching strategies, database optimization, and cloud deployment.",
-
-            // Projects - informal
-            'projects': "Ashish raj's worked on some cool stuff! Check out the Projects section - a food delivery app, an AI legal document search system, and an IoT warehouse climate control system. Any particular one catch your eye?",
-            'what have they built': "A bunch of neat things! A full-stack food & grocery delivery app on both app stores, an LLM-powered legal document search engine, and an Industrial IoT climate control system. Want me to highlight a few?",
-
-            // Projects - formal
-            'portfolio': "Ashish raj has a backend-focused portfolio of projects, ranging from a production delivery platform to an LLM-driven document retrieval system. Would you like more information on a specific project?",
-            'professional work': "Ashish raj has contributed to various professional and internship projects, demonstrating expertise in backend development, system design, and security. The Projects and Experience sections provide detailed information on each.",
-
-            // Contact - informal
-            'contact': "Wanna get in touch with Ashish raj? Just use the contact form below. He'd love to hear from you!",
-            'how to reach': "Easy peasy! There's a contact form right here on the site. Drop Ashish raj a line anytime!",
-
-            // Contact - formal
-            'professional inquiry': "For professional inquiries, please utilize the contact form provided in the Contact section. Ashish raj will respond promptly to your message.",
-            'business communication': "To initiate business communication with Ashish raj, please submit your inquiry through the designated contact form. You can expect a timely and professional response.",
-
-            // Experience - informal
-            'experience': "Ashish raj's interned as a backend engineer at Propell Action, ValueKare Technologies, and iGURUS Consultancy, working on RBAC systems, asset management, and financial platforms!",
-            'work history': "Let's see... Backend Intern at Propell Action (RBAC, security, Flutter mobile), SDE Intern at ValueKare (fixed asset management system), and Software Development Intern at iGURUS (financial comparison platform). Want the full scoop? Check the Experience section!",
-
-            // Experience - formal
-            'professional experience': "Ashish raj has interned as a Backend Intern at Propell Action Private Limited, an SDE Intern at ValueKare Technologies Private Limited, and a Software Development Intern at iGURUS Consultancy Services, spanning RBAC systems, DevOps, and financial platforms.",
-            'career progression': "Ashish raj's career progression spans backend internships across health-tech, enterprise SaaS, and fintech, alongside independently shipping and leading a production delivery app, demonstrating a consistent trajectory of professional growth.",
-
-            // Education - informal
-            'education': "Ashish raj is in his 4th year (7th semester) doing B.Tech in CSE at NIT Sikkim, with a CGPA of 7.02 through 6th semester. Always learning new stuff online too!",
-            'where did they study': "He's studying at NIT Sikkim (B.Tech CSE, currently 7th semester), but honestly, he's always studying! Bootcamps, online courses, you name it.",
-
-            // Education - formal
-            'academic background': "Ashish raj is pursuing a B.Tech in Computer Science and Engineering from NIT Sikkim, currently in the 7th semester, with a CGPA of 7.02 through the 6th semester. He also regularly engages in professional development through online courses and certifications.",
-            'qualifications': "Ashish raj is pursuing a B.Tech in Computer Science and Engineering from NIT Sikkim (CGPA 7.02 through 6th semester), supplemented by continuous professional development and relevant industry certifications.",
-
-            // Personal projects and volunteer work (as before)
-            'personal projects': "Ashish raj built and launched a full-stack food & grocery delivery app (Flutter, Node.js, PostgreSQL, Redis) live on both app stores, an LLM-powered legal document retrieval system, and an Industrial IoT warehouse climate control system.",
-            'volunteer work': "Ashish raj is a Core Member of The Regnant Ink literary club at NIT Sikkim, having organized 8+ events, and is Backend Lead for the food delivery application."
-        };
-
-        // Check if any keyword matches the input
-        for (let keyword in responses) {
-            if (lowerMessage.includes(keyword)) {
-                return responses[keyword];
-            }
-        }
-
-        // If no keyword matches, return a default response
-        return "I'm not sure I understand. Could you rephrase your question? You can ask me about Ashish raj's skills, projects, experience, or education.";
+    function showTyping() {
+        const el = document.createElement('div');
+        el.classList.add('message', 'ai-message');
+        el.innerHTML = '<span class="typing-indicator"><span></span><span></span><span></span></span>';
+        chatbotMessages.appendChild(el);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        return el;
     }
 
-    const menuIcon = document.querySelector('.menu-icon');
-    const navUl = document.querySelector('nav ul');
-
-    console.log('Menu icon:', menuIcon);
-    console.log('Nav ul:', navUl);
-
-    if (menuIcon && navUl) {
-        menuIcon.addEventListener('click', () => {
-            console.log('Menu icon clicked');
-            navUl.classList.toggle('show');
-            console.log('Nav classes after toggle:', navUl.classList);
-        });
-
-        // Close menu when a link is clicked
-        document.querySelectorAll('nav ul li a').forEach(link => {
-            link.addEventListener('click', () => {
-                navUl.classList.remove('show');
-                console.log('Nav link clicked, nav classes:', navUl.classList);
-            });
-        });
-    } else {
-        console.error('Menu icon or nav ul not found');
+    function respondTo(message) {
+        const typingEl = showTyping();
+        const delay = 400 + Math.random() * 400;
+        setTimeout(() => {
+            typingEl.remove();
+            addMessage('ai', getChatResponse(message));
+        }, delay);
     }
 
-    // Add this function to your existing script.js
-    function setupThemeToggle() {
-        const themeToggle = document.getElementById('theme-toggle');
-        const body = document.body;
-
-        console.log('Setting up theme toggle');
-        console.log('Theme toggle element:', themeToggle);
-
-        if (!themeToggle) {
-            console.error('Theme toggle element not found');
-            return;
-        }
-
-        // Check for saved user preference
-        const savedNightMode = localStorage.getItem('nightMode');
-        console.log('Saved night mode:', savedNightMode);
-
-        if (savedNightMode === 'true') {
-            body.classList.add('night-mode');
-            themeToggle.checked = true;
-            console.log('Applied saved night mode');
-        }
-
-        themeToggle.addEventListener('change', () => {
-            console.log('Theme toggle changed', themeToggle.checked);
-            if (themeToggle.checked) {
-                body.classList.add('night-mode');
-                localStorage.setItem('nightMode', 'true');
-                document.documentElement.style.setProperty('--bg-color', '#ffffff');
-                document.documentElement.style.setProperty('--text-color', '#333333');
-            } else {
-                body.classList.remove('night-mode');
-                localStorage.setItem('nightMode', 'false');
-                document.documentElement.style.setProperty('--bg-color', '#0a192f');
-                document.documentElement.style.setProperty('--text-color', '#8892b0');
-            }
-            console.log('Body classes:', body.classList);
-        });
+    function sendMessage(overrideText) {
+        const message = (overrideText !== undefined ? overrideText : userInput.value).trim();
+        if (!message) return;
+        addMessage('user', message);
+        userInput.value = '';
+        respondTo(message);
     }
 
-    // Make sure this function is being called
-    document.addEventListener('DOMContentLoaded', () => {
-        console.log('DOM content loaded');
-        setupThemeToggle();
+    function greetOnce() {
+        if (greeted) return;
+        greeted = true;
+        addMessage('ai', "Hi! I'm a small FAQ bot — not a real AI — but I can answer quick questions about Ashish's skills, projects, experience, and how to get in touch.");
+    }
+
+    chatbotToggle.addEventListener('click', () => {
+        chatbotContainer.classList.add('chatbot-hidden');
+        chatbotOpen.style.display = 'flex';
     });
 
-    // Call the reveal function
-    reveal();
-});
+    chatbotOpen.addEventListener('click', () => {
+        chatbotContainer.classList.remove('chatbot-hidden');
+        chatbotOpen.style.display = 'none';
+        greetOnce();
+        userInput.focus();
+    });
+
+    sendButton.addEventListener('click', () => sendMessage());
+    userInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+    });
+
+    quickReplies.forEach((chip) => {
+        chip.addEventListener('click', () => {
+            const key = chip.getAttribute('data-query');
+            sendMessage(CHAT_QUICK_REPLY_TEXT[key] || key);
+        });
+    });
+}
+
+// ---------------------------------------------------------------------------
+// Theme toggle (persisted via localStorage)
+// ---------------------------------------------------------------------------
+function setupThemeToggle() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+    if (!themeToggle) return;
+
+    const savedNightMode = localStorage.getItem('nightMode');
+    if (savedNightMode === 'true') {
+        body.classList.add('night-mode');
+        themeToggle.checked = true;
+    }
+
+    themeToggle.addEventListener('change', () => {
+        if (themeToggle.checked) {
+            body.classList.add('night-mode');
+            localStorage.setItem('nightMode', 'true');
+        } else {
+            body.classList.remove('night-mode');
+            localStorage.setItem('nightMode', 'false');
+        }
+    });
+}
+
+// ---------------------------------------------------------------------------
+// Mobile menu
+// ---------------------------------------------------------------------------
+function setupMobileMenu() {
+    const menuIcon = document.querySelector('.menu-icon');
+    const navUl = document.querySelector('nav ul');
+    if (!menuIcon || !navUl) return;
+
+    menuIcon.addEventListener('click', () => navUl.classList.toggle('show'));
+
+    document.querySelectorAll('nav ul li a').forEach(link => {
+        link.addEventListener('click', () => navUl.classList.remove('show'));
+    });
+}
 
 // Scroll-to-top button
 const scrollToTopButton = document.getElementById('scroll-to-top');
 if (scrollToTopButton) {
     window.addEventListener('scroll', () => {
-        scrollToTopButton.style.display = window.pageYOffset > 100 ? 'block' : 'none';
+        scrollToTopButton.style.display = window.pageYOffset > 300 ? 'block' : 'none';
     });
     scrollToTopButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
 
-// Sync 3D Skill Cube rotation with scroll position
-window.addEventListener('scroll', () => {
-    const scrollPercentage = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-    const rotation = scrollPercentage * 360;
-    document.querySelector('.skill-cube').style.transform = `rotateX(${rotation}deg) rotateY(${rotation}deg)`;
-});
-
 // Particle background
 particlesJS('particles-js', {
     particles: {
-        number: { value: 100, density: { enable: true, value_area: 800 } },
-        color: { value: '#64ffda' },
+        number: { value: 70, density: { enable: true, value_area: 800 } },
+        color: { value: '#6366f1' },
         shape: { type: 'circle' },
-        opacity: { value: 0.3, random: false },
+        opacity: { value: 0.25, random: false },
         size: { value: 2, random: true },
-        line_linked: { enable: true, distance: 150, color: '#64ffda', opacity: 0.2, width: 1 },
-        move: { enable: true, speed: 2, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
+        line_linked: { enable: true, distance: 150, color: '#6366f1', opacity: 0.15, width: 1 },
+        move: { enable: true, speed: 1.6, direction: 'none', random: false, straight: false, out_mode: 'out', bounce: false }
     },
     interactivity: {
         detect_on: 'canvas',
-        events: { 
-            onhover: { enable: true, mode: 'repulse' }, 
+        events: {
+            onhover: { enable: true, mode: 'repulse' },
             onclick: { enable: false },
-            resize: true 
+            resize: true
         },
         modes: { repulse: { distance: 100, duration: 0.4 } }
     },
@@ -355,6 +370,7 @@ const floatingIcons = document.querySelectorAll('.floating-icons i');
 const floatingIconsContainer = document.querySelector('.floating-icons');
 
 function positionIcons() {
+    if (!floatingIconsContainer) return;
     const containerRect = floatingIconsContainer.getBoundingClientRect();
     floatingIcons.forEach(icon => {
         icon.style.top = `${Math.random() * (containerRect.height - icon.offsetHeight)}px`;
@@ -367,19 +383,14 @@ function positionIcons() {
 positionIcons();
 window.addEventListener('resize', positionIcons);
 
-console.log('Number of floating icons:', floatingIcons.length);
-
-// Initial function calls
-reveal();
-
 // Navbar scroll effect
 window.addEventListener('scroll', () => {
     const header = document.querySelector('header');
-    header.classList.toggle('scrolled', window.scrollY > 50);
+    if (header) header.classList.toggle('scrolled', window.scrollY > 50);
 });
 
 // Active link highlighting
-const sections = document.querySelectorAll('section');
+const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('nav ul li a');
 
 window.addEventListener('scroll', () => {
@@ -399,51 +410,3 @@ window.addEventListener('scroll', () => {
         }
     });
 });
-
-// 3D Skill Cube interaction
-const skillCube = document.querySelector('.skill-cube');
-const cubeFaces = document.querySelectorAll('.cube-face');
-
-let isRotating = true;
-let currentRotation = { x: 0, y: 0 };
-let targetRotation = { x: 0, y: 0 };
-let lastTime = 0;
-
-function rotateCube(time) {
-    if (lastTime !== 0) {
-        const deltaTime = time - lastTime;
-        if (isRotating) {
-            currentRotation.x += 0.05 * deltaTime / 16;
-            currentRotation.y += 0.05 * deltaTime / 16;
-        } else {
-            currentRotation.x += (targetRotation.x - currentRotation.x) * 0.1;
-            currentRotation.y += (targetRotation.y - currentRotation.y) * 0.1;
-        }
-        skillCube.style.transform = `rotateX(${currentRotation.x}deg) rotateY(${currentRotation.y}deg)`;
-    }
-    lastTime = time;
-    requestAnimationFrame(rotateCube);
-}
-
-skillCube.addEventListener('mouseenter', () => {
-    isRotating = false;
-});
-
-skillCube.addEventListener('mouseleave', () => {
-    isRotating = true;
-});
-
-cubeFaces.forEach((face, index) => {
-    face.addEventListener('mouseenter', () => {
-        const angle = 90 * index;
-        targetRotation.x = Math.floor(index / 2) * 90;
-        targetRotation.y = (index % 2 === 0 ? angle : -angle);
-    });
-});
-requestAnimationFrame(rotateCube);
-
-
-
-
-
-

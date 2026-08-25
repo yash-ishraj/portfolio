@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ashish Raj - Backend Software Engineer</title>
+    <title>Ashish Raj &mdash; Backend Software Engineer</title>
     <meta name="description" content="Ashish Raj - backend-focused software engineer building scalable systems, REST APIs, and production apps.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-    <meta name="theme-color" content="#0a192f">
+    <meta name="theme-color" content="#0b0d17">
 </head>
 <body>
     <header>
@@ -20,6 +23,7 @@
                     <li><a href="#home" class="active">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#experience">Experience</a></li>
+                    <li><a href="#education">Education</a></li>
                     <li><a href="#projects">Projects</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
@@ -38,16 +42,32 @@
             <div id="particles-js"></div>
             <div class="container">
                 <div class="hero-content">
-                    <div class="hero-text">
-                        <h1>Hey, I'm <span class="highlight">Ashish Raj</span></h1>
-                        <p class="lead">A backend-focused software engineer building scalable systems, REST APIs, and cloud-deployed services. Currently shipping a production food &amp; grocery delivery app with 500+ active users, and interning on backend and platform security work.</p>
-                        <a href="#projects" class="cta-button">Projects</a>
-                        <a href="./assets/Ashish_Raj_Resume.pdf" class="cta-button cta-secondary" id="resume-link" target="_blank" rel="noopener" download>Resume</a>
+                    <div class="eyebrow"><span class="eyebrow-dot"></span>Backend Engineer &middot; NIT Sikkim</div>
+                    <h1>Hey, I'm <span class="highlight">Ashish Raj</span></h1>
+                    <p class="lead">A backend-focused software engineer building scalable systems, REST APIs, and cloud-deployed services. Currently shipping a production food &amp; grocery delivery app with 500+ active users, and interning on backend and platform-security work.</p>
+                    <div class="hero-actions">
+                        <a href="#projects" class="cta-button">View Projects</a>
+                        <a href="./assets/Ashish_Raj_Resume.pdf" class="cta-button cta-secondary" id="resume-link" target="_blank" rel="noopener" download>
+                            <i class="fas fa-download"></i> Résumé
+                        </a>
+                        <a href="#contact" class="cta-button cta-ghost">Get in touch &rarr;</a>
                     </div>
-                    <div class="hero-image">
-                        <div class="profile-photo-container">
-                            <img src="./assets/portfolioimg2.jpg" alt="Ashish Raj" class="profile-photo">
-                            <div class="profile-photo-border"></div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-value" data-count="500" data-suffix="+">0</span>
+                            <span class="stat-label">Active Users</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" data-count="3" data-suffix="">0</span>
+                            <span class="stat-label">Internships</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" data-count="40" data-suffix="%">0</span>
+                            <span class="stat-label">API Perf Boost</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" data-static="7.02">7.02</span>
+                            <span class="stat-label">CGPA (6th Sem)</span>
                         </div>
                     </div>
                 </div>
@@ -64,58 +84,67 @@
 
         <section id="about" data-aos="fade-up" class="reveal">
             <div class="container">
-                <h2>About Me</h2>
-                <div class="about-content">
-                    <div class="get-to-know-me" data-aos="fade-right">
-                        <h3>Get to know me!</h3>
-                        <p>My name is Ashish Raj and I'm in my 4th year (7th semester), pursuing a B.Tech in Computer Science and Engineering at NIT Sikkim, with a CGPA of 7.02 through the 6th semester. I'm backend-focused, with production experience building scalable systems, REST APIs, caching layers, and cloud-deployed services. I've shipped a food &amp; grocery delivery app on both app stores with 500+ active users, and interned on backend and platform-security work at Propell Action, ValueKare Technologies, and iGURUS Consultancy.</p>
-                        <a href="#contact" class="cta-button">Contact</a>
+                <div class="section-header">
+                    <div class="eyebrow"><span class="eyebrow-dot"></span>About</div>
+                    <h2>Backend-focused, product-minded</h2>
+                    <p class="section-sub">Currently in my 7th semester at NIT Sikkim, shipping production systems and interning across health-tech, enterprise SaaS, and fintech.</p>
+                </div>
+                <div class="about-grid">
+                    <div class="about-bio" data-aos="fade-right">
+                        <p>My name is Ashish Raj &mdash; I'm in my 4th year (7th semester), pursuing a B.Tech in Computer Science and Engineering at NIT Sikkim, with a CGPA of 7.02 through the 6th semester.</p>
+                        <p>I'm backend-focused, with production experience building scalable systems, REST APIs, caching layers, and cloud-deployed services. I've shipped a food &amp; grocery delivery app on both app stores with 500+ active users, and interned on backend and platform-security work at Propell Action, ValueKare Technologies, and iGURUS Consultancy.</p>
+                        <ul class="now-list">
+                            <li><i class="fas fa-code-branch"></i> Building &amp; leading the backend for Groozo, a live delivery platform</li>
+                            <li><i class="fas fa-shield-alt"></i> Shipped RBAC + DPDP/GDPR compliance work at Propell Action</li>
+                            <li><i class="fas fa-terminal"></i> Actively learning Golang and Kubernetes</li>
+                        </ul>
                     </div>
-                    <div class="my-skills" data-aos="fade-left">
-                        <h3>My Skills</h3>
-                        <div class="skills-wrapper">
-                            <div class="skill-bars">
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-target="88">
-                                        <span>88%</span>
-                                    </div>
-                                    <p>Python / Backend APIs</p>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-target="82">
-                                        <span>82%</span>
-                                    </div>
-                                    <p>Node.js / Express</p>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-target="80">
-                                        <span>80%</span>
-                                    </div>
-                                    <p>PostgreSQL / Redis</p>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-target="75">
-                                        <span>75%</span>
-                                    </div>
-                                    <p>Docker / AWS</p>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-target="70">
-                                        <span>70%</span>
-                                    </div>
-                                    <p>Flutter</p>
-                                </div>
-                                <!-- Add more skill bars as needed -->
+                    <div class="skills-panel" data-aos="fade-left">
+                        <h3>Tech Stack</h3>
+                        <div class="skill-group">
+                            <div class="skill-group-label">Languages</div>
+                            <div class="skill-chips">
+                                <span class="skill-chip"><i class="fab fa-python"></i> Python</span>
+                                <span class="skill-chip"><i class="fab fa-java"></i> Java</span>
+                                <span class="skill-chip"><i class="fab fa-node-js"></i> Node.js</span>
+                                <span class="skill-chip">C</span>
+                                <span class="skill-chip">SQL</span>
+                                <span class="skill-chip">Golang</span>
                             </div>
-                            <div class="skill-cube-container">
-                                <div class="skill-cube">
-                                    <div class="cube-face front" data-skill="Python">Python</div>
-                                    <div class="cube-face back" data-skill="FastAPI">FastAPI</div>
-                                    <div class="cube-face right" data-skill="PostgreSQL">PostgreSQL</div>
-                                    <div class="cube-face left" data-skill="Redis">Redis</div>
-                                    <div class="cube-face top" data-skill="Docker">Docker</div>
-                                    <div class="cube-face bottom" data-skill="AWS">AWS</div>
-                                </div>
+                        </div>
+                        <div class="skill-group">
+                            <div class="skill-group-label">Backend &amp; APIs</div>
+                            <div class="skill-chips">
+                                <span class="skill-chip">FastAPI</span>
+                                <span class="skill-chip">Express.js</span>
+                                <span class="skill-chip">REST APIs</span>
+                                <span class="skill-chip">Microservices</span>
+                                <span class="skill-chip">WebSockets</span>
+                            </div>
+                        </div>
+                        <div class="skill-group">
+                            <div class="skill-group-label">Data &amp; Caching</div>
+                            <div class="skill-chips">
+                                <span class="skill-chip">PostgreSQL</span>
+                                <span class="skill-chip">Redis</span>
+                                <span class="skill-chip">Supabase</span>
+                            </div>
+                        </div>
+                        <div class="skill-group">
+                            <div class="skill-group-label">Cloud &amp; DevOps</div>
+                            <div class="skill-chips">
+                                <span class="skill-chip"><i class="fab fa-aws"></i> AWS</span>
+                                <span class="skill-chip"><i class="fab fa-docker"></i> Docker</span>
+                                <span class="skill-chip">Kubernetes</span>
+                                <span class="skill-chip">GitHub Actions</span>
+                            </div>
+                        </div>
+                        <div class="skill-group">
+                            <div class="skill-group-label">Security &amp; Auth</div>
+                            <div class="skill-chips">
+                                <span class="skill-chip">JWT</span>
+                                <span class="skill-chip">OTP</span>
+                                <span class="skill-chip">RBAC</span>
                             </div>
                         </div>
                     </div>
@@ -125,7 +154,11 @@
 
         <section id="experience" data-aos="fade-up" class="reveal">
             <div class="container">
-                <h2>Experience</h2>
+                <div class="section-header">
+                    <div class="eyebrow"><span class="eyebrow-dot"></span>Experience</div>
+                    <h2>Where I've worked</h2>
+                    <p class="section-sub">Three internships spanning health-tech, enterprise SaaS, and fintech &mdash; all backend-first.</p>
+                </div>
                 <div class="experience-list">
                     <div class="exp-card" data-aos="fade-up">
                         <div class="exp-header">
@@ -134,6 +167,12 @@
                         </div>
                         <p class="exp-role">Hair &amp; Skin AI App (Consumer Health-Tech) &middot; Thane, Maharashtra</p>
                         <p>Migrated the product to a standalone Vite/React/Supabase codebase, built a Flutter mobile client, shipped a dynamic RBAC system with an admin console, and added DPDP/GDPR compliance and security hardening across serverless functions.</p>
+                        <div class="exp-tags">
+                            <span class="exp-tag">Supabase</span>
+                            <span class="exp-tag">RBAC</span>
+                            <span class="exp-tag">Flutter</span>
+                            <span class="exp-tag">Compliance</span>
+                        </div>
                     </div>
                     <div class="exp-card" data-aos="fade-up">
                         <div class="exp-header">
@@ -142,6 +181,12 @@
                         </div>
                         <p class="exp-role">Fixed Asset Management System &middot; Jaipur</p>
                         <p>Built a fixed asset management system with role-based access across 4 tiers, containerized with Docker Compose, and deployed on AWS via a CI/CD pipeline that cut release cycles by 60%.</p>
+                        <div class="exp-tags">
+                            <span class="exp-tag">Docker Compose</span>
+                            <span class="exp-tag">AWS</span>
+                            <span class="exp-tag">CI/CD</span>
+                            <span class="exp-tag">RBAC</span>
+                        </div>
                     </div>
                     <div class="exp-card" data-aos="fade-up">
                         <div class="exp-header">
@@ -150,33 +195,120 @@
                         </div>
                         <p class="exp-role">Backend Services &amp; Real-Time Analytics &middot; Remote</p>
                         <p>Built a FastAPI/PostgreSQL financial comparison platform and improved backend performance by 35% through database indexing, Redis caching, and connection pooling.</p>
+                        <div class="exp-tags">
+                            <span class="exp-tag">FastAPI</span>
+                            <span class="exp-tag">PostgreSQL</span>
+                            <span class="exp-tag">Redis</span>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" data-aos="fade-up" class="reveal">
+            <div class="container">
+                <div class="section-header">
+                    <div class="eyebrow"><span class="eyebrow-dot"></span>Education</div>
+                    <h2>Academics &amp; certifications</h2>
+                </div>
+                <div class="education-grid">
+                    <div class="edu-card" data-aos="fade-right">
+                        <div class="edu-card-header">
+                            <h3>B.Tech, Computer Science &amp; Engineering</h3>
+                            <span class="exp-date">2023 &ndash; 2027</span>
+                        </div>
+                        <p class="edu-meta">National Institute of Technology Sikkim</p>
+                        <div class="edu-metrics">
+                            <div>
+                                <div class="edu-metric-value">7.02</div>
+                                <div class="edu-metric-label">CGPA (till 6th sem)</div>
+                            </div>
+                            <div>
+                                <div class="edu-metric-value">7th</div>
+                                <div class="edu-metric-label">Current Semester</div>
+                            </div>
+                        </div>
+                        <div class="beyond-row">
+                            <div class="beyond-card">
+                                <strong>Backend Lead</strong>
+                                Food delivery application &middot; Jan 2024 &ndash; Present. Led technical architecture and deployment strategy while scaling to real production users.
+                            </div>
+                            <div class="beyond-card">
+                                <strong>Core Member, The Regnant Ink</strong>
+                                Literary Club, NIT Sikkim &middot; Apr 2024 &ndash; Present. Organized 8+ events, engaging 50+ participants.
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="cert-list" data-aos="fade-left">
+                        <li><i class="fas fa-certificate"></i> Flutter and Dart &mdash; The Complete Guide</li>
+                        <li><i class="fas fa-certificate"></i> Mastering Data Structures &amp; Algorithms using C</li>
+                        <li><i class="fas fa-graduation-cap"></i> Senior Secondary (XII), Shivam Convent School &mdash; 83%</li>
+                        <li><i class="fas fa-graduation-cap"></i> Secondary (X), Jawahar Navodaya Vidyalaya Saran &mdash; 86.7%</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
         <section id="projects" data-aos="fade-up" class="reveal">
             <div class="container">
-                <h2>Projects</h2>
+                <div class="section-header">
+                    <div class="eyebrow"><span class="eyebrow-dot"></span>Projects</div>
+                    <h2>Things I've built</h2>
+                    <p class="section-sub">A mix of production systems, AI-driven tooling, and applied IoT.</p>
+                </div>
                 <div class="project-grid">
                     <div class="project-card" data-aos="zoom-in">
-                        <div class="project-icon"><i class="fas fa-basket-shopping"></i></div>
-                        <h3>Localised Food &amp; Grocery Delivery Platform</h3>
-                        <p class="project-stack">Flutter &middot; Node.js &middot; PostgreSQL &middot; Redis</p>
-                        <p>Full-stack delivery platform serving 500+ active users with real-time order processing, JWT auth, OTP login via Firebase, and push notifications &mdash; live on the Google Play Store and Apple App Store.</p>
-                        <a href="https://www.groozo.in/" target="_blank" rel="noopener" class="cta-button">Live Site</a>
+                        <div class="project-icon">
+                            <span class="project-featured-tag">Live &middot; 500+ users</span>
+                            <i class="fas fa-basket-shopping"></i>
+                        </div>
+                        <div class="project-body">
+                            <h3>Localised Food &amp; Grocery Delivery Platform</h3>
+                            <div class="project-tags">
+                                <span class="project-tag">Flutter</span>
+                                <span class="project-tag">Node.js</span>
+                                <span class="project-tag">PostgreSQL</span>
+                                <span class="project-tag">Redis</span>
+                            </div>
+                            <p>Full-stack delivery platform serving 500+ active users with real-time order processing, JWT auth, OTP login via Firebase, and push notifications &mdash; live on the Google Play Store and Apple App Store.</p>
+                            <a href="https://www.groozo.in/" target="_blank" rel="noopener" class="cta-button">Live Site</a>
+                        </div>
                     </div>
                     <div class="project-card" data-aos="zoom-in">
                         <div class="project-icon"><i class="fas fa-gavel"></i></div>
-                        <h3>HACRX: AI-Powered Legal Document Retrieval</h3>
-                        <p class="project-stack">Python &middot; GPT-4 &middot; Pinecone &middot; OpenAI Embeddings</p>
-                        <p>LLM-driven semantic search over 10,000+ legal documents with sub-100ms retrieval, an end-to-end embedding &amp; chunking pipeline, and an 80% cut in manual search time.</p>
+                        <div class="project-body">
+                            <h3>HACRX: AI-Powered Legal Document Retrieval</h3>
+                            <div class="project-tags">
+                                <span class="project-tag">Python</span>
+                                <span class="project-tag">GPT-4</span>
+                                <span class="project-tag">Pinecone</span>
+                            </div>
+                            <p>LLM-driven semantic search over 10,000+ legal documents with sub-100ms retrieval, an end-to-end embedding &amp; chunking pipeline, and an 80% cut in manual search time.</p>
+                        </div>
+                    </div>
+                    <div class="project-card" data-aos="zoom-in">
+                        <div class="project-icon"><i class="fas fa-shield-virus"></i></div>
+                        <div class="project-body">
+                            <h3>Multi-Modal Misinformation Detection API</h3>
+                            <div class="project-tags">
+                                <span class="project-tag">FastAPI</span>
+                                <span class="project-tag">Python</span>
+                            </div>
+                            <p>A backend service that accepts text, image, audio, and video submissions, extracts and normalizes the content, and returns a classification verdict with an explanation.</p>
+                            <a href="https://github.com/yash-ishraj/MISINFO-FASTAPI" target="_blank" rel="noopener" class="cta-ghost">View Code &rarr;</a>
+                        </div>
                     </div>
                     <div class="project-card" data-aos="zoom-in">
                         <div class="project-icon"><i class="fas fa-warehouse"></i></div>
-                        <h3>Automated Warehouse Climate Control</h3>
-                        <p class="project-stack">ESP32 &middot; Python &middot; LSTM &middot; Reinforcement Learning</p>
-                        <p>Industrial IoT system with ESP32 sensors, LSTM-based prediction, and reinforcement-learning control for automated climate optimization across 5+ warehouse zones.</p>
+                        <div class="project-body">
+                            <h3>Automated Warehouse Climate Control</h3>
+                            <div class="project-tags">
+                                <span class="project-tag">ESP32</span>
+                                <span class="project-tag">LSTM</span>
+                                <span class="project-tag">RL</span>
+                            </div>
+                            <p>Industrial IoT system with ESP32 sensors, LSTM-based prediction, and reinforcement-learning control for automated climate optimization across 5+ warehouse zones.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -184,14 +316,28 @@
 
         <section id="contact" data-aos="fade-up" class="reveal">
             <div class="container">
-                <h2>Contact</h2>
-                <p class="lead">Feel free to Contact me by submitting the form below and I will get back to you as soon as possible</p>
-                <form id="contact-form" action="https://formspree.io/f/xpwzqqop" method="POST">
-                    <input type="text" name="name" placeholder="Name" required>
-                    <input type="email" name="email" placeholder="Email" required>
-                    <textarea name="message" placeholder="Message" required></textarea>
-                    <button type="submit" class="cta-button">Submit</button>
-                </form>
+                <div class="section-header">
+                    <div class="eyebrow"><span class="eyebrow-dot"></span>Contact</div>
+                    <h2>Let's work together</h2>
+                    <p class="section-sub">Open to backend engineering internships and full-time roles. Reach out directly or use the form.</p>
+                </div>
+                <div class="contact-grid">
+                    <div class="contact-info" data-aos="fade-right">
+                        <a class="contact-chip" href="mailto:as7488896@gmail.com"><i class="fas fa-envelope"></i> as7488896@gmail.com</a>
+                        <a class="contact-chip" href="tel:+919835397556"><i class="fas fa-phone"></i> +91 98353 97556</a>
+                        <a class="contact-chip" href="https://www.linkedin.com/in/ashish-raj-6983a622b/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> linkedin.com/in/ashish-raj</a>
+                        <a class="contact-chip" href="https://github.com/yash-ishraj" target="_blank" rel="noopener"><i class="fab fa-github"></i> github.com/yash-ishraj</a>
+                        <a class="contact-chip" href="./assets/Ashish_Raj_Resume.pdf" target="_blank" rel="noopener" download><i class="fas fa-file-download"></i> Download Résumé</a>
+                    </div>
+                    <form id="contact-form" data-aos="fade-left" action="https://formspree.io/f/xpwzqqop" method="POST">
+                        <div class="form-row">
+                            <input type="text" name="name" placeholder="Name" required>
+                            <input type="email" name="email" placeholder="Email" required>
+                        </div>
+                        <textarea name="message" placeholder="Message" required></textarea>
+                        <button type="submit" class="cta-button">Send Message</button>
+                    </form>
+                </div>
             </div>
         </section>
     </main>
@@ -206,9 +352,9 @@
                 <div class="footer-right">
                     <h3>Social</h3>
                     <div class="social-links">
-                        <a href="https://www.linkedin.com/in/ashish-raj-6983a622b/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://github.com/yash-ishraj" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
-                        <a href="mailto:as7488896@gmail.com"><i class="fas fa-envelope"></i></a>
+                        <a href="https://www.linkedin.com/in/ashish-raj-6983a622b/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/yash-ishraj" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="mailto:as7488896@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
                     </div>
                 </div>
             </div>
@@ -216,60 +362,32 @@
         </div>
     </footer>
 
-    <button id="scroll-to-top" title="Scroll to Top">↑</button>
+    <button id="scroll-to-top" title="Scroll to Top"><i class="fas fa-arrow-up"></i></button>
 
     <div id="chatbot-container" class="chatbot-hidden">
         <div id="chatbot-header">
-            <h3>AI Assistant</h3>
+            <div>
+                <div class="chatbot-title">Ask about Ashish</div>
+                <div class="chatbot-subtitle">A quick FAQ bot &mdash; not a real AI</div>
+            </div>
             <button id="chatbot-toggle">×</button>
+        </div>
+        <div id="chatbot-quick-replies">
+            <span class="quick-reply-chip" data-query="skills">Skills</span>
+            <span class="quick-reply-chip" data-query="experience">Experience</span>
+            <span class="quick-reply-chip" data-query="projects">Projects</span>
+            <span class="quick-reply-chip" data-query="contact">Contact</span>
         </div>
         <div id="chatbot-messages"></div>
         <div id="chatbot-input">
-            <input type="text" id="user-input" placeholder="Ask me anything...">
-            <button id="send-button">Send</button>
+            <input type="text" id="user-input" placeholder="Ask a question...">
+            <button id="send-button" aria-label="Send"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
-    <button id="chatbot-open">Chat with AI</button>
+    <button id="chatbot-open"><i class="fas fa-comment-dots"></i> Ask about me</button>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="script.js"></script>
-
-    <script>
-        console.log('Inline script running');
-
-        document.getElementById('year').textContent = new Date().getFullYear();
-
-        function setupThemeToggle() {
-            const themeToggle = document.getElementById('theme-toggle');
-            const body = document.body;
-
-            console.log('Setting up theme toggle');
-            console.log('Theme toggle element:', themeToggle);
-
-            if (!themeToggle) {
-                console.error('Theme toggle element not found');
-                return;
-            }
-
-            themeToggle.addEventListener('change', () => {
-                console.log('Theme toggle changed', themeToggle.checked);
-                if (themeToggle.checked) {
-                    body.classList.add('night-mode');
-                } else {
-                    body.classList.remove('night-mode');
-                }
-                console.log('Body classes:', body.classList);
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('DOM content loaded');
-            setupThemeToggle();
-        });
-
-        // Immediate execution as a fallback
-        setupThemeToggle();
-    </script>
 </body>
 </html>
